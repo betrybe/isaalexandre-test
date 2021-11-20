@@ -10,6 +10,8 @@ app.get('/', (request, response) => {
 });
 // Não remover esse end-point, ele é necessário para o avaliador
 
-require('./controllers/userController')(app);
+require('./users/userController')(app);
+require('./login/loginController')(app);
+require('./recipes/recipesController')(app);
 
 module.exports = app;
