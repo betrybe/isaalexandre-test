@@ -7,9 +7,9 @@ const authConfig = {
 module.exports = (request, response, next) => {
   const authHeader = request.headers.authorization;
 
-  if (!authHeader) {
-    return response.status(401).send({ message: 'missing auth token' });
-  }
+    if (!authHeader) {
+      return response.status(401).json({ message: 'missing auth token' });
+    }
 
   jwt.verify(authHeader, authConfig.secret, (err, decoded) => {
     if (err) return response.status(401).send({ message: 'jwt malformed' });
