@@ -7,8 +7,18 @@ const Recipe = require('../models/recipe');
 const router = express.Router();
 
 router.get('/', async (request, response) => {
-    const recipes = await Recipe.find();
-    return response.status(200).send(recipes);
+  const recipes = await Recipe.find();
+  return response.status(200).send(recipes);
+});
+
+router.get('/:id', async (request, response) => {
+  const { id } = request.params;
+  const recipes = await Recipe.findById(id);
+  if (!recipes) {
+    return response.status(404).send({ message: 'recipe not found' });
+  }
+
+  return response.status(200).send(recipes);
 });
 
 router.use(authMiddleware);
