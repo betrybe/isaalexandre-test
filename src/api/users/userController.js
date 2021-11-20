@@ -1,4 +1,5 @@
 const express = require('express');
+const validator = require('validator');
 
 const User = require('../models/user');
 
@@ -11,15 +12,21 @@ router.post('/', async (request, response) => {
       return response.status(409).send({ message: 'Email already registered' });
     }
 
+    if (!validator.isEmail(email)) {
+      return response
+        .status(400)
+        .send({ message: 'Invalid entries. Try again.' });
+    }
+
     const user = await User.create(request.body);
-    
+
     user.password = undefined;
-    
+
     return response.status(201).json({ user });
   } catch (err) {
     return response
-    .status(400)
-    .send({ message: 'Invalid entries. Try again.' });
+      .status(400)
+      .send({ message: 'Invalid entries. Try again.' });
   }
 });
 
