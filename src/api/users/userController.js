@@ -10,7 +10,6 @@ const router = express.Router();
 router.post('/', async (request, response) => {
   const { email } = request.body;
   try {
-    const role = 'user';
 
     if (await User.findOne({ email })) {
       return response.status(409).send({ message: 'Email already registered' });
@@ -22,7 +21,7 @@ router.post('/', async (request, response) => {
         .send({ message: 'Invalid entries. Try again.' });
     }
 
-    const user = await User.create({ ...request.body, role });
+    const user = await User.create({ ...request.body, role: 'user' });
 
     user.password = undefined;
 
