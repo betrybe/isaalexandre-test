@@ -22,7 +22,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.pre('save', async function (next) {
+UserSchema.pre('save', async function role(next) {
   this.role = 'user';
   next();
 });
