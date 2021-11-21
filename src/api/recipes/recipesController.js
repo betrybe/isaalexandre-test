@@ -13,13 +13,14 @@ router.get('/', async (request, response) => {
 });
 
 router.get('/:id', async (request, response) => {
-  const { id } = request.params;
-  const recipes = await Recipe.findById(id);
-  if (!recipes) {
+  const { _id } = request.params;
+  const recipe = await Recipe.findById(_id);
+  
+  if (!recipe) {
     return response.status(404).send({ message: 'recipe not found' });
   }
 
-  return response.status(200).send(recipes);
+  return response.status(200).send(recipe);
 });
 
 router.use(authMiddleware);
