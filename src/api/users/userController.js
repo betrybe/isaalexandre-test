@@ -10,7 +10,6 @@ const router = express.Router();
 router.post('/', async (request, response) => {
   const { email } = request.body;
   try {
-
     if (await User.findOne({ email })) {
       return response.status(409).send({ message: 'Email already registered' });
     }
